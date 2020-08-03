@@ -4,7 +4,7 @@ from django.views.decorators.http import require_http_methods #判断状态
 from django.http import JsonResponse #返回JSON
 from api_1_0.config import RET,PATH
 import json,os,shutil,re
-
+import time
 from apps.utls.subprocess_test import runcmd  #封装到的subprocess方法
 
 def code():
@@ -131,9 +131,11 @@ def opencv(request):
     if request.method == "POST":
         images = request.POST.get("images")
         docker_run_cmd = f"docker run -itd --runtime=nvidia --rm --privileged -v /dockerdata/AppData:/data  -v {PATH.OPENCV_DIR}:/zhengzhong -e LANG=C.UTF-8 -e NVIDIA_VISIBLE_DEVICES=all {images} "
-        code,docker_id = runcmd(docker_run_cmd)
-        if code:
-            _,r = runcmd(f"docker exec -it {docker_id} python3 /zhengzhong/opencv.py")
+        docker_id = runcmd(docker_run_cmd)
+        time.sleep(1)
+        if docker_id:
+            r = runcmd(f"docker exec -it {docker_id} python3 /zhengzhong/opencv.py")
+            time.sleep(2)
         os.system(f"docker stop {docker_id} &")
         response["opencv版本"] = r
         return  JsonResponse(response)
