@@ -131,9 +131,9 @@ def opencv(request):
     if request.method == "POST":
         images = request.POST.get("images")
         docker_run_cmd = f"docker run -itd --runtime=nvidia --rm --privileged -v /dockerdata/AppData:/data  -v {PATH.OPENCV_DIR}:/zhengzhong -e LANG=C.UTF-8 -e NVIDIA_VISIBLE_DEVICES=all {images} "
-        docker_id = runcmd(docker_run_cmd)
-        if docker_id:
-            r = runcmd(f"docker exec -it {docker_id} python3 /zhengzhong/opencv.py")
+        code,docker_id = runcmd(docker_run_cmd)
+        if code:
+            _,r = runcmd(f"docker exec -it {docker_id} python3 /zhengzhong/opencv.py")
         os.system(f"docker stop {docker_id} &")
         response["opencv版本"] = r
         return  JsonResponse(response)
