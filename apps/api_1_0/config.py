@@ -54,5 +54,6 @@ class PATH:
     VAS_DIR = os.path.join(SDK_PACKAGE_DIR, "vas")        # VAS目录的路径
     OPENCV_DIR = os.path.join(SDK_PACKAGE_DIR, "opencv")  # OPENCV目录的路径
     LIBS_DIR = os.path.join(SDK_PACKAGE_DIR, "libs")  # 临时目录
+    TRAIN_DIR = os.path.join(APPS_DIR,"train")
 
 
