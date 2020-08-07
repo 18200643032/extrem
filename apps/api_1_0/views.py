@@ -193,7 +193,7 @@ def get_performance_information(request):
     zhengzhong = PerForm_InFor("zhengzhong")
     res_cpu_total, res_mem_total = zhengzhong.run_sdk_opencv()
     image_dir = image_name.split('/')[-1].split(":")[0]
-    res_image_data = os.path.join(path, f'res_data')
+    res_image_data = os.path.join(PATH.SDK_PACKAGE_DIR, f'res_data')
     opencv_num = zhengzhong.get_opencv_num(image_name)
     cpu_list = [(i, j) for i in range(1, 50) for j in range(2, 5) if i * j <= int(res_cpu_total)]
     opencv34_dir = "docker volume inspect  opencv_34 |grep Mountpoint|awk '{print $2}'"
