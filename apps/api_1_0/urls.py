@@ -11,5 +11,6 @@ urlpatterns = [
     re_path("standard", views.standard), #规范
     re_path("ias",views.ias),
     re_path("opencv",views.opencv),
-    re_path("file_image",views.file_image)
+    re_path("file_image",views.file_image),
+    re_path("test1",views.get_performance_information),
 ]
