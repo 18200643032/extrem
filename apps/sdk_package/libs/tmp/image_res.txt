@@ -1,0 +1,38 @@
+I0819 18:08:40.850307    24 test.cpp:705] version info:
+	EV_SDK_VERSION: 3.0.3
+	EV_LICENSE_VERSION: 20.1.3
+I0819 18:08:40.850487    24 test.cpp:814] run params info:
+	fuction: 1.ji_calc_frame
+	license: license.txt
+	infile: /zhengzhong/hand_pick20191206_85.jpg
+	args: 
+	outfile: 
+	repeat:1
+I0819 18:08:40.850558    24 test.cpp:838] license info:
+	license: 8d63446592b3071abcd26e0f91b48f673160b2ac2015840cefe42e8c005b8a8f556b0a643b4b4b68bcf401b9c68c9aaf65ac156666e2c07f7e57d88108a42cef8afa514e88702f69bbcf159fb90c012a14f1bd87eb4d182a3c3cbe5891536e71d8900e185bd4d563f9285e8d0ae44fcd00597fcfb477c5d05c3e3bd461a933cc
+	url: 
+	activation: 
+	timestamp: 
+	qps: 
+	version:7
+I0819 18:08:40.850571    24 ji.cpp:1330] EV_SDK version:3.0.3
+I0819 18:08:40.850579    24 ji.cpp:1336] License version:20.1.3
+sginfo(open): No such file or directory
+file=/dev/sda, or no corresponding sg device found
+Is sg driver loaded?
+I0819 18:08:40.856138    24 ji.cpp:1260] Parsing configuration file: /usr/local/ev_sdk/config/algo_config.json
+[0;33mW0819 18:08:40.856258    24 Configuration.hpp:218] parsing roi:POLYGON((0.07878787878787878 0.1575,0.05757575757575758 0.8925,0.8484848484848485 0.9325,0.7742424242424243 0.0875,0.4257575757575758 0.0575))
+[mI0819 18:08:40.955965    24 ji.cpp:1280] Decrypting model...
+I0819 18:08:40.956159    24 ji.cpp:1291] Decrypted model size:1915
+I0819 18:08:40.956171    24 ji.cpp:1316] SamplePredictor init OK.
+[0;33mW0819 18:08:40.958313    24 Configuration.hpp:218] parsing roi:POLYGON((0.07878787878787878 0.1575,0.05757575757575758 0.8925,0.8484848484848485 0.9325,0.7742424242424243 0.0875,0.4257575757575758 0.0575))
+[mI0819 18:08:41.025696    24 test.cpp:190] call ji_calc_frame, return 0
+I0819 18:08:41.025719    24 test.cpp:194] event info:
+	code: 1
+	json: {
+	"alert_flag":	0,
+	"hand_action":	0,
+	"thing_in":	0,
+	"thing_out":	0
+}
+I0819 18:08:41.026049    24 test.cpp:239] Input image not modfied.

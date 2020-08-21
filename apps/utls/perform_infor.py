@@ -154,4 +154,5 @@ class PerForm_InFor():
         opencv41_dir = "docker volume inspect  opencv_41 |grep Mountpoint|awk '{print $2}'"
         _, res_opencv41_dir = self.sdk_subprocess(opencv41_dir)
         res_opencv41_dir = res_opencv41_dir[1:-8]
-        self.opeccv_num_name(opencv_num, res_opencv34_dir, res_opencv41_dir, random_num, res_vas_dir,cpus,image)
+        return  self.opeccv_num_name(opencv_num, res_opencv34_dir, res_opencv41_dir, random_num, res_vas_dir,cpus,image)
+        

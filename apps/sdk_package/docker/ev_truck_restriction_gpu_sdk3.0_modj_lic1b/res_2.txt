@@ -1,0 +1,116 @@
+I0819 09:25:07.024307   487 test.cpp:713] version info:
+	EV_SDK_VERSION: 3.0.0
+	EV_LICENSE_VERSION: version:v20.0.1
+I0819 09:25:07.024534   487 test.cpp:821] run params info:
+	fuction: 1.ji_calc_frame
+	license: license.txt
+	infile: /zhengzhong/1.jpg
+	args: 
+	outfile: /zhengzhong/res2.jpg
+	repeat:1
+I0819 09:25:07.024605   487 test.cpp:845] license info:
+	license: a5a57c4c0b985eb6426345651abe1ee14cbd8cda93bc97fc3782c4c6b5adf039a79e1b763fe29d245a17c21156e6499868207cbbd20be43f97fb9fc14214f29e416aff17847a6aefad728a9da9fd68df7754eee3eb8861a0fa8d1ecfaa7eb9ddd5e38472fd42cb5c30cc6f0c8c657aafbb1e48aa2fb30dba7ff57cdfdb7a807a
+	url: 
+	activation: 
+	timestamp: 
+	qps: 
+	version:7
+sginfo(open): No such file or directory
+file=/dev/sda, or no corresponding sg device found
+Is sg driver loaded?
+Running license_init.
+----------------------------------------------------------------
+Input filename:   /usr/local/ev_sdk/model/truck_recog_sim20200721.onnx
+ONNX IR version:  0.0.4
+Opset version:    9
+Producer name:    pytorch
+Producer version: 1.3
+Domain:           
+Model version:    0
+Doc string:       
+----------------------------------------------------------------
+[08/19/2020-09:25:07] [W] [TRT] onnx2trt_utils.cpp:198: Your ONNX model has been generated with INT64 weights, while TensorRT does not natively support INT64. Attempting to cast down to INT32.
+[08/19/2020-09:25:07] [W] [TRT] onnx2trt_utils.cpp:198: Your ONNX model has been generated with INT64 weights, while TensorRT does not natively support INT64. Attempting to cast down to INT32.
+[08/19/2020-09:25:07] [W] [TRT] onnx2trt_utils.cpp:198: Your ONNX model has been generated with INT64 weights, while TensorRT does not natively support INT64. Attempting to cast down to INT32.
+[08/19/2020-09:25:46] [I] [TRT] Detected 1 inputs and 12 output network tensors.
+[08/19/2020-09:25:46] [W] [TRT] Current optimization profile is: 0. Please ensure there are no enqueued operations pending in this context prior to switching profiles
+[08/19/2020-09:25:46] [W] [TRT] Current optimization profile is: 0. Please ensure there are no enqueued operations pending in this context prior to switching profiles
+I0819 09:25:46.855180   487 test.cpp:190] 0x11e10a0
+I0819 09:25:46.891350   487 Yolov3Detector.cpp:119] 2.661
+I0819 09:25:46.891422   487 Yolov3Detector.cpp:129] before nms 17
+I0819 09:25:46.891448   487 Yolov3Detector.cpp:134] after nms 6
+I0819 09:25:46.891688   487 plate_rec.cpp:60] PlateRec:: start read the exists engine : /usr/local/ev_sdk/model/plate_batch2.engine
+: Deserialize required 284525 microseconds.
+: myelinAllocCb allocated GPU 6524928 bytes at 0x7f1934c00000
+: myelinAllocCb allocated CPU 2820 bytes at 0x1920a480
+: myelinAllocCb allocated GPU 6774784 bytes at 0x7f1934c00000
+: myelinAllocCb allocated CPU 2820 bytes at 0x1920b000
+: myelinAllocCb allocated GPU 7258112 bytes at 0x7f1934c00000
+: myelinAllocCb allocated CPU 2820 bytes at 0x1920d080
+: myelinAllocCb allocated GPU 8224768 bytes at 0x7f1934c00000
+: myelinAllocCb allocated CPU 2820 bytes at 0x1920f100
+: myelinAllocCb allocated GPU 10158080 bytes at 0x7f1934c00000
+: myelinAllocCb allocated CPU 2820 bytes at 0x19211180
+: myelinAllocCb allocated GPU 14024704 bytes at 0x7f1934c00000
+: myelinAllocCb allocated CPU 2820 bytes at 0x19213180
+: myelinAllocCb allocated GPU 6524928 bytes at 0x7f1934c00000
+: myelinAllocCb allocated CPU 2820 bytes at 0x19215180
+: myelinAllocCb allocated GPU 6774784 bytes at 0x7f1934c00000
+: myelinAllocCb allocated CPU 2820 bytes at 0x19217180
+: myelinAllocCb allocated GPU 7258112 bytes at 0x7f1934c00000
+: myelinAllocCb allocated CPU 2820 bytes at 0x19219180
+: myelinAllocCb allocated GPU 8224768 bytes at 0x7f1934c00000
+: myelinAllocCb allocated CPU 2820 bytes at 0x1921b180
+: myelinAllocCb allocated GPU 10158080 bytes at 0x7f1934c00000
+: myelinAllocCb allocated CPU 2820 bytes at 0x1921d180
+: myelinAllocCb allocated GPU 14024704 bytes at 0x7f1934c00000
+: myelinAllocCb allocated CPU 2820 bytes at 0x1921f180
+I0819 09:25:48.139256   487 plate_rec.cpp:305]  plate: 桂KSZ488
+I0819 09:25:48.139271   487 plate_rec.cpp:305]  plate: 辽QQ
+I0819 09:25:48.139276   487 plate_rec.cpp:159] cost time is : 8.677
+I0819 09:25:48.147589   487 plate_rec.cpp:305]  plate: 桂KSZ488
+I0819 09:25:48.147599   487 plate_rec.cpp:305]  plate: 辽QQ
+I0819 09:25:48.147605   487 plate_rec.cpp:159] cost time is : 8.083
+I0819 09:25:48.156085   487 plate_rec.cpp:305]  plate: 桂KSZ488
+I0819 09:25:48.156095   487 plate_rec.cpp:305]  plate: 辽QQ
+I0819 09:25:48.156100   487 plate_rec.cpp:159] cost time is : 8.427
+I0819 09:25:48.156160   487 test.cpp:192] call ji_calc_frame, return 0
+I0819 09:25:48.156165   487 test.cpp:196] event info:
+	code: 0
+	json: {
+	"alert_info":	[{
+			"x":	864,
+			"y":	0,
+			"width":	2176,
+			"height":	2363,
+			"confidence":	0.919317,
+			"license_plate":	"桂KSZ488"
+		}],
+	"alert_flag":	1,
+	"alert_num":	1
+}
+I0819 09:25:48.232892   487 test.cpp:251] Input image not modfied.
+: myelinFreeCb freeing GPU at 0x7f1934c00000
+: myelinFreeCb freeing CPU at 0x1920a480
+: myelinFreeCb freeing GPU at 0x7f1934c00000
+: myelinFreeCb freeing CPU at 0x1920b000
+: myelinFreeCb freeing GPU at 0x7f1934c00000
+: myelinFreeCb freeing CPU at 0x1920d080
+: myelinFreeCb freeing GPU at 0x7f1934c00000
+: myelinFreeCb freeing CPU at 0x1920f100
+: myelinFreeCb freeing GPU at 0x7f1934c00000
+: myelinFreeCb freeing CPU at 0x19211180
+: myelinFreeCb freeing GPU at 0x7f1934c00000
+: myelinFreeCb freeing CPU at 0x19213180
+: myelinFreeCb freeing GPU at 0x7f1934c00000
+: myelinFreeCb freeing CPU at 0x19215180
+: myelinFreeCb freeing GPU at 0x7f1934c00000
+: myelinFreeCb freeing CPU at 0x19217180
+: myelinFreeCb freeing GPU at 0x7f1934c00000
+: myelinFreeCb freeing CPU at 0x19219180
+: myelinFreeCb freeing GPU at 0x7f1934c00000
+: myelinFreeCb freeing CPU at 0x1921b180
+: myelinFreeCb freeing GPU at 0x7f1934c00000
+: myelinFreeCb freeing CPU at 0x1921d180
+: myelinFreeCb freeing GPU at 0x7f1934c00000
+: myelinFreeCb freeing CPU at 0x1921f180

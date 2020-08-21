@@ -3,8 +3,9 @@ from django.http import StreamingHttpResponse  #文件处理
 from django.views.decorators.http import require_http_methods #判断状态
 from django.http import JsonResponse #返回JSON
 from api_1_0.config import RET,PATH
-import json,os,shutil,re
-
+import json,os,shutil,re,requests
+import uuid,time
+import subprocess
 from apps.utls.subprocess_test import runcmd  #封装到的subprocess方法
 from apps.utls.perform_infor import PerForm_InFor
 
@@ -42,9 +43,10 @@ def standard(request):
             os.makedirs(os.path.join(PATH.DOCKER_DIR, images_name))
         shutil.copy(os.path.join(PATH.DOCKER_DIR, 'guifan.zip'), os.path.join(PATH.DOCKER_DIR, images_name))
         os.system(f"unzip {os.path.join(os.path.join(PATH.DOCKER_DIR, images_name), 'guifan.zip')} -d {os.path.join(PATH.DOCKER_DIR,images_name)}")
-        os.system(f"cp {os.path.join(PATH.TMP_DIR, image_name)} {os.path.join(os.path.join(PATH.DOCKER_DIR, images_name), '1.jpg')}")
+        os.system(f"cp {os.path.join(os.path.join(PATH.LIBS_DIR,'tmp'), image_name)} {os.path.join(os.path.join(PATH.DOCKER_DIR, images_name), '1.jpg')}")
         docker_run_cmd = f"docker run -itd --runtime=nvidia --privileged -v /dockerdata/AppData:/data -v {os.path.join(PATH.DOCKER_DIR,images_name)}:/zhengzhong  -e LANG=C.UTF-8 -e NVIDIA_VISIBLE_DEVICES=all {images} "
-        if runcmd(docker_id):
+        code,docker_id = runcmd(docker_run_cmd)
+        if code:
             # docker_id = os.popen(docker_run_cmd).read()[:8]
             os.system("docker exec -it %s python3 /zhengzhong/auto_run.py" % (docker_id))
             response["msg"] = "算法规范已完成，请去查看结果"
@@ -81,8 +83,8 @@ def ias(request):
 
         # 获取到容器id
         cmd_run_sdk = f"docker run -itd  --runtime=nvidia --privileged -v /home/zheng:/tmp  -e LANG=C.UTF-8 -e NVIDIA_VISIBLE_DEVICES=0 --rm  -p {port}:80 {image_name}"
-        contain_id = runcmd(cmd_run_sdk)
-        if contain_id:
+        code,contain_id = runcmd(cmd_run_sdk)
+        if code:
             pass
         else:
             response["errmsg"] = "端口已使用或其他错误"
@@ -94,8 +96,8 @@ def ias(request):
         }
         ias_ver = requests.post("http://192.168.1.147:8899/api/opencv/", data=data).json().get("opencv版本")
         if ias_ver == "4.1":
-            cmd = f"cp {path}/sdk_package/ias/ias_4.1.tar.gz /home/zheng;tar -xvf /home/zheng/ias_4.1.tar.gz -C /home/zheng"
-            res_p = runcmd(cmd)
+            cmd = f"cp {PATH.APPS_DIR}/sdk_package/ias/ias_4.1.tar.gz /home/zheng;tar -xvf /home/zheng/ias_4.1.tar.gz -C /home/zheng"
+            _,res_p = runcmd(cmd)
             if res_p:
                 pass
             else:
@@ -104,8 +106,8 @@ def ias(request):
                 return JsonResponse(res)
 
         else:
-            cmd = f"cp {path}/sdk_package/ias/ias_4.1.tar.gz /home/zheng;tar -xvf /home/zheng/ias_4.1.tar.gz -C /home/zheng"
-            res_p = runcmd(cmd)
+            cmd = f"cp {PATH.APPS_DIR}/sdk_package/ias/ias_4.1.tar.gz /home/zheng;tar -xvf /home/zheng/ias_4.1.tar.gz -C /home/zheng"
+            res_p,_ = runcmd(cmd)
             if res_p:
                 pass
             else:
@@ -113,11 +115,11 @@ def ias(request):
                 response["errmsg"] = "移动文件到挂载目录失败"
                 return JsonResponse(res)
         ias_install = f"docker exec  {contain_id} bash /tmp/give_license.sh &"
-        runcmd(ias_install)
+        os.system(ias_install)
         response["errno"] = RET.OK
         response["errmsg"] = "封装ias成功"
         response["ias的版本是"] = ias_ver
-        return JsonResponse(res)
+        return JsonResponse(response)
     else:
         response["errot"] = "方法不对"
         return JsonResponse(response)
@@ -164,8 +166,8 @@ def file_image(request):
             destination.close()
         images = request.POST.get("images")
         docker_run_cmd = f"docker run -itd --runtime=nvidia --rm --privileged -v /dockerdata/AppData:/data  -v {os.path.join(PATH.LIBS_DIR,'tmp')}:/zhengzhong -e LANG=C.UTF-8 -e NVIDIA_VISIBLE_DEVICES=all {images}"
-        docker_id = runcmd(docker_run_cmd)
-        if docker_id:
+        code,docker_id = runcmd(docker_run_cmd)
+        if code:
             for name in name_list_images:
                 os.system(f"docker exec -it {docker_id} bash /zhengzhong/1.sh {name}")
                 with open(os.path.join(os.path.join(PATH.LIBS_DIR,'tmp'),"image_res.txt"),"r") as f:
@@ -175,7 +177,7 @@ def file_image(request):
                 r = json.loads(res_xmins)
                 response[name] = r
             os.system(f"docker stop {docker_id}")
-            return JsonResponse(res)
+            return JsonResponse(response)
     else:
         response["errot"] = "方法不对"
         return JsonResponse(response)
@@ -213,12 +215,14 @@ def get_performance_information(request):
                 docker_vas = f"docker build -t {image_name}_test --build-arg IMAGE_NAME={image_name} -f {res_opencv34_dir}/Dockerfile ."
             else:
                 docker_vas = f"docker build -t {image_name}_test --build-arg IMAGE_NAME={image_name} -f {res_opencv41_dir}/Dockerfile ."
-            status, res_docker_vas = sdk_subprocess(docker_vas)
+            status, res_docker_vas = zhengzhong.sdk_subprocess(docker_vas)
             if not status:
                 print('docker_vas命令出现错误------------------')
             image_name_test = image_name + "_test"
             cpuset_cpus = str(cpu_set_num).replace(" ", '')[1:-1]
+            print(opencv_num)
             container_id = zhengzhong.docker_run(random_num, cpuset_cpus, image_name_test, opencv_num)
+            print(container_id)
             docker_auth = f"docker exec {container_id} bash /tmp/authorization.sh"
             subprocess.Popen(docker_auth, shell=True)
             # 等待算法运行300秒, 在统计资源占用
